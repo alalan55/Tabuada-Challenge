@@ -78,12 +78,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container {
+.container{
   background-color: rgb(151 151 151 / 10%);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: auto;
   padding: 1.5em;
   flex-direction: column;
   position: relative;
