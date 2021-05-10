@@ -1,6 +1,6 @@
 <template>
   <footer>
-      <span>Desenvolvido por <a href="">Alan Ferreira</a> <i class="far fa-heart"></i></span>
+      <span>Desenvolvido por <a href="https://github.com/alalan55/Tabuada-Challenge">Alan Ferreira</a> <i class="far fa-heart"></i></span>
   </footer>
 </template>
 
