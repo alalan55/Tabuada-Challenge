@@ -32,4 +32,7 @@ html {
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  background-color: rgb(151 151 151 / 10%);
+}
 </style>
