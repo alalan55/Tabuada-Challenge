@@ -1,4 +1,4 @@
-# game-tabuada
+# Tabuada Challenge 
 
 ## Project setup
 ```
