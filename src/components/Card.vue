@@ -55,7 +55,7 @@ export default {
         : this.errado();
 
       this.gerarValoresAleatorios();
-      this.valor = 0;
+      this.valor = '';
     },
     correto() {
       this.acertos.push(this.primeiroValor * this.segundoValor);
@@ -87,6 +87,8 @@ export default {
   padding: 1.5em;
   flex-direction: column;
   position: relative;
+  height: 100vh;
+  border: 1px solid;
 }
 .board {
   padding: 1.5em;
@@ -119,6 +121,7 @@ input {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  text-align: center;
 }
 .respo {
   margin-bottom: 10px;
