@@ -46,13 +46,12 @@ export default {
   data() {
     return {
       fimDeJogo: false,
-      valor: 0,
+      valor: '',
       current: 0,
       erros: [],
       acertos: [],
       primeiroValor: 0,
       segundoValor: 0,
-      correta: false,
       message: '',
       vidas: [ {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true}],
       temVidas: true,
@@ -69,12 +68,14 @@ export default {
       this.segundoValor = Math.floor(Math.random() * 14);
     },
     calcular() {
-      
-      +this.valor === +this.primeiroValor * +this.segundoValor
-        ? this.correto()
-        : this.errado();
-      this.gerarValoresAleatorios();
-      this.valor = '';
+      if(this.valor != ''){
+
+        +this.valor === +this.primeiroValor * +this.segundoValor
+          ? this.correto()
+          : this.errado();
+        this.gerarValoresAleatorios();
+        this.valor = '';
+      }
     },
     correto() {
       this.acertos.push(this.primeiroValor * this.segundoValor);
@@ -86,8 +87,6 @@ export default {
       this.message = "ERRADA";
 
       if(this.current < this.vidas.length){
-
-        this.vidas[this.current].class = 'far'
         this.vidas[this.current].valor = false
         this.current++
       }else{
