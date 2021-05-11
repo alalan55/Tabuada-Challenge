@@ -1,7 +1,16 @@
 <template>
   <div class="container">
       <slot />
+
     <div class="board">
+      <div class="vidas">
+        <div class="text-vidas">
+          <span>Chances</span>
+        </div>
+        <div class="coracoes">
+        <i :class="[{fas: vidas[index].valor},far]" class="fa-heart" v-for="(value, index) in vidas" :key="index" ></i>
+        </div>
+      </div>
       <div class="valores">
         <h1>{{ primeiroValor }} x {{ segundoValor }}</h1>
         <input type="number" v-model="valor" />
@@ -17,9 +26,13 @@
         </div>
 
         <div class="respo">
-          <button @click="calcular" class="btn">Responder</button>
+          <button @click="calcular" class="btn" v-if="!fimDeJogo">Responder</button>
+          <button @click="reiniciar" class="btn" v-else>Reiniciar</button>
         </div>
-        <div class="detalhes">
+        <div class="detalhes" v-if="fimDeJogo">
+          <div class="pontuacao">
+            <span>Você fez {{pontuacao}} pontos!</span>
+          </div>
           <span><i class="fas fa-check"></i> Acertos: {{ corretas }}</span>
           <span> <i class="fas fa-times"></i> Erros: {{ erradas }}</span>
         </div>
@@ -32,13 +45,19 @@
 export default {
   data() {
     return {
+      fimDeJogo: false,
       valor: 0,
+      current: 0,
       erros: [],
       acertos: [],
       primeiroValor: 0,
       segundoValor: 0,
       correta: false,
       message: '',
+      vidas: [ {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true},  {class: 'fas', valor: true}],
+      temVidas: true,
+      far: 'far',
+      pontuacao: 0,
     };
   },
   created() {
@@ -50,21 +69,41 @@ export default {
       this.segundoValor = Math.floor(Math.random() * 10);
     },
     calcular() {
-      this.valor == this.primeiroValor * this.segundoValor
+      +this.valor === +this.primeiroValor * +this.segundoValor
         ? this.correto()
         : this.errado();
-
       this.gerarValoresAleatorios();
       this.valor = '';
     },
     correto() {
       this.acertos.push(this.primeiroValor * this.segundoValor);
       this.message = "CORRETA";
+      this.pontuacao += 10;
     },
     errado() {
       this.erros.push(this.primeiroValor * this.segundoValor);
       this.message = "ERRADA";
+
+      if(this.current < this.vidas.length){
+
+        this.vidas[this.current].class = 'far'
+        this.vidas[this.current].valor = false
+        this.current++
+      }else{
+        this.fimDeJogo = true;
+        console.log('fim de game')
+        console.log(this.pontuacao)
+      }
     },
+    reiniciar(){
+      this.fimDeJogo = false;
+      this.current = 0;
+      this.message = ''
+      this.vidas.forEach(v => {
+        v.valor = true;
+        v.class = 'fas'
+      })
+    }
   },
   computed: {
     corretas: function () {
@@ -103,6 +142,25 @@ export default {
     -3px -2px 3px rgba(255, 255, 255, 0.2),
     2px 2px 2px rgba(0, 0, 0, 0.08) inset;
 }
+.vidas{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.coracoes{
+  display: flex;
+  margin-top: .2em;
+}
+.coracoes i{
+  margin: 0 2px;
+}
+.vidas i{
+  color: rgb(228, 77, 77);
+}
+.text-vidas{
+  font-size: .8em;
+}
 .valores {
   display: flex;
   flex-wrap: wrap;
@@ -129,6 +187,9 @@ input {
 }
 .detalhes span {
   margin: 0 5px;
+}
+.pontuacao{
+  margin-bottom: .2em;
 }
 input {
   margin: 0.7em 0;
