@@ -65,10 +65,11 @@ export default {
   },
   methods: {
     gerarValoresAleatorios() {
-      this.primeiroValor = Math.floor(Math.random() * 10);
-      this.segundoValor = Math.floor(Math.random() * 10);
+      this.primeiroValor = Math.floor(Math.random() * 15);
+      this.segundoValor = Math.floor(Math.random() * 14);
     },
     calcular() {
+      
       +this.valor === +this.primeiroValor * +this.segundoValor
         ? this.correto()
         : this.errado();
@@ -91,8 +92,6 @@ export default {
         this.current++
       }else{
         this.fimDeJogo = true;
-        console.log('fim de game')
-        console.log(this.pontuacao)
       }
     },
     reiniciar(){
