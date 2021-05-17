@@ -34,14 +34,22 @@
             <span>Você fez {{pontuacao}} pontos!</span>
           </div>
           <span><i class="fas fa-check"></i> Acertos: {{ corretas }}</span>
-          <span> <i class="fas fa-times"></i> Erros: {{ erradas }}</span>
+          <span> 
+            <i class="fas fa-times"></i> Erros: {{ erradas }}
+            <ul class="respostas__corretas">
+              <span class="corretas">As respostas corretas(das que voce errou) são:</span>
+              <li v-for="(error, index) in erros" :key="index"> <span>{{error}}</span></li>
+            </ul>
+            </span>
         </div>
       </div>
     </div>
+  <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from '@/components/Footer.vue'
 export default {
   data() {
     return {
@@ -58,6 +66,9 @@ export default {
       far: 'far',
       pontuacao: 0,
     };
+  },
+  components:{
+Footer
   },
   created() {
     this.gerarValoresAleatorios();
@@ -78,12 +89,14 @@ export default {
       }
     },
     correto() {
-      this.acertos.push(this.primeiroValor * this.segundoValor);
+      let respostaCorreta = (`${this.primeiroValor} X ${this.segundoValor} = ${this.primeiroValor * this.segundoValor}`)
+      this.acertos.push(respostaCorreta);
       this.message = "CORRETA";
       this.pontuacao += 10;
     },
     errado() {
-      this.erros.push(this.primeiroValor * this.segundoValor);
+      let respostaCorreta = (`${this.primeiroValor} X ${this.segundoValor} = ${this.primeiroValor * this.segundoValor}`)
+      this.erros.push(respostaCorreta);
       this.message = "ERRADA";
 
       if(this.current < this.vidas.length){
@@ -91,6 +104,7 @@ export default {
         this.current++
       }else{
         this.fimDeJogo = true;
+        console.log(this.erros)
       }
     },
     reiniciar(){
@@ -124,7 +138,7 @@ export default {
   padding: 1.5em;
   flex-direction: column;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   border: 1px solid;
 }
 .board {
@@ -239,5 +253,16 @@ input {
 }
 .fa-times {
   color: rgb(228, 77, 77);
+}
+li{
+  list-style: none;
+}
+.respostas__corretas{
+  margin-top: 1em;
+  text-align: center;
+}
+.corretas{
+    color: rgb(213, 174, 20);
+    text-align: center;
 }
 </style>
