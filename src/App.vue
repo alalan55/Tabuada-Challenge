@@ -3,19 +3,16 @@
     <Card>
       <Header title="Tabuada challenge" />
     </Card>
-    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header";
 import Card from "./components/Card";
-import Footer from "./components/Footer";
 
 export default {
   name: "App",
   components: {
-    Footer,
     Card,
     Header,
   },
