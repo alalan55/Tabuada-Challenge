@@ -104,7 +104,6 @@ Footer
         this.current++
       }else{
         this.fimDeJogo = true;
-        console.log(this.erros)
       }
     },
     reiniciar(){
